@@ -3,7 +3,7 @@
 // Completed Task 3: Makes improvement in variable names
 // Completed Task 4 : Refactors Duplicates File Read and write logic into method.
 // Completed Task 5 : Replace String Literals with Constant.java Class
-
+// Completed Task 6 : Remove Temporary Variable
 
 import java.io.*;
 import java.text.*;
@@ -14,11 +14,13 @@ public class StudentList {
 
     static BufferedReader bufferedReader;
     static String lines;
+    static String [] studentNames;
     public static void getReader(){
 
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
             lines = bufferedReader.readLine();
+            studentNames = lines.split(",");
         }
 
         catch (FileNotFoundException e) {
@@ -55,8 +57,6 @@ public class StudentList {
 
             try {
 
-                String[] studentNames = lines.split(",");
-
                 for (String name : studentNames) {
                     System.out.println(name);
 
@@ -75,8 +75,6 @@ public class StudentList {
 
 
                 System.out.println(lines);
-
-                String[] studentNames = lines.split(",");
 
                 Random random = new Random();
                 int indexOfRandomStudent = random.nextInt();
@@ -118,9 +116,6 @@ public class StudentList {
 
             try {
 
-                String[] studentNames = lines.split(",");
-
-                boolean isFound = false;
 
                 String studentName = args[0].substring(1);
 
@@ -128,7 +123,8 @@ public class StudentList {
 
                     if (studentNames[idx].equals(studentName)) {
                         System.out.println(Constants.FoundYesMessage);
-                        isFound = true;
+                        System.out.println(Constants.DataLoadSucessMsg);
+                        return;
                     }
 
                 }
@@ -138,7 +134,6 @@ public class StudentList {
 
             }
 
-            System.out.println(Constants.DataLoadSucessMsg);
         } else if (args[0].contains("c")) {
 
             System.out.println(Constants.DataLoadingProgress);
