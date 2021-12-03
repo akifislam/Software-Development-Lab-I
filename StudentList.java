@@ -2,10 +2,13 @@
 // Completed Task 2: Fixed early terminates for passing wrong number of argument,
 // Completed Task 3: Makes improvement in variable names
 // Completed Task 4 : Refactors Duplicates File Read and write logic into method.
+// Completed Task 5 : Replace String Literals with Constant.java Class
+
 
 import java.io.*;
 import java.text.*;
 import java.util.*;
+
 
 public class StudentList {
 
@@ -14,15 +17,15 @@ public class StudentList {
     public static void getReader(){
 
         try {
-           bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
             lines = bufferedReader.readLine();
         }
 
         catch (FileNotFoundException e) {
-            System.out.println("File cannot be opened !");
+            System.out.println(Constants.FileIOExMessage);
         }
-       catch (IOException e) {
-            System.out.println("Empty File");
+        catch (IOException e) {
+            System.out.println(Constants.IOExMessage);
         }
 
     }
@@ -33,22 +36,22 @@ public class StudentList {
         // Check arguments
 
         if (args.length == 0) {
-            System.out.println("You must have to put at least one argument.");
+            System.out.println(Constants.ZeroArgument);
         }
 
         else if (args.length > 1) {
-            System.out.println("Multipled arguments found ! You must have to put exactly one argument to run this program.");
+            System.out.println(Constants.MultipleArgument);
 
         }
 
         else if (!args[0].startsWith("+") && args[0].length() > 1) {
-            System.out.println("Please pass the correct argument.");
+            System.out.println(Constants.WrongArgument);
 
         }
 
         else if (args[0].equals("a")) {
 
-            System.out.println("Loading data ...");
+            System.out.println(Constants.DataLoadingProgress);
 
             try {
 
@@ -63,10 +66,10 @@ public class StudentList {
 
             }
 
-            System.out.println("Data Loaded.");
+            System.out.println(Constants.DataLoadSucessMsg);
         } else if (args[0].equals("r")) {
 
-            System.out.println("Loading data ...");
+            System.out.println(Constants.DataLoadingProgress);
 
             try {
 
@@ -84,10 +87,10 @@ public class StudentList {
 
             }
 
-            System.out.println("Data Loaded.");
+            System.out.println(Constants.DataLoadSucessMsg);
         } else if (args[0].contains("+")) {
 
-            System.out.println("Loading data ...");
+            System.out.println(Constants.DataLoadingProgress);
 
             try {
 
@@ -97,8 +100,7 @@ public class StudentList {
                 String newStudentName = args[0].substring(1);
                 Date todaysDate = new Date();
 
-                String formatedDateString = "dd/mm/yyyy-hh:mm:ss a";
-                DateFormat dateFormat = new SimpleDateFormat(formatedDateString);
+                DateFormat dateFormat = new SimpleDateFormat(Constants.formatedDateString);
 
                 String currentDateTime = dateFormat.format(todaysDate);
                 bufferedWriter.write(", " + newStudentName + "\nList last updated on " + currentDateTime);
@@ -108,11 +110,11 @@ public class StudentList {
 
             }
 
-            System.out.println("Data Loaded.");
+            System.out.println(Constants.DataLoadSucessMsg);
 
         } else if (args[0].contains("?")) {
 
-            System.out.println("Loading data ...");
+            System.out.println(Constants.DataLoadingProgress);
 
             try {
 
@@ -125,7 +127,7 @@ public class StudentList {
                 for (int idx = 0; idx < studentNames.length && !isFound; idx++) {
 
                     if (studentNames[idx].equals(studentName)) {
-                        System.out.println("We found it!");
+                        System.out.println(Constants.FoundYesMessage);
                         isFound = true;
                     }
 
@@ -136,10 +138,10 @@ public class StudentList {
 
             }
 
-            System.out.println("Data Loaded.");
+            System.out.println(Constants.DataLoadSucessMsg);
         } else if (args[0].contains("c")) {
 
-            System.out.println("Loading data ...");
+            System.out.println(Constants.DataLoadingProgress);
 
             try {
 
@@ -169,10 +171,10 @@ public class StudentList {
 
             }
 
-            System.out.println("Data Loaded.");
+            System.out.println(Constants.DataLoadSucessMsg);
 
         } else {
-            System.out.println("Wrong argument. Please put the correct argument");
+            System.out.println(Constants.WrongArgument);
         }
     }
 }
