@@ -1,5 +1,13 @@
 // Completed Task 1: Update code style for better consistency.
 // Completed Task 2: Fixed early terminates for passing wrong number of argument,
+// Completed Task 3: Makes improvement in variable names
+
+
+
+
+
+
+
 
 import java.io.*;
 import java.text.*;
@@ -35,13 +43,14 @@ public class StudentList {
 
             try {
 
-                BufferedReader s = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                String r = s.readLine();
-                String[] i = r.split(",");
+                String lines = bufferedReader.readLine();
+                String[] studentNames = lines.split(",");
 
-                for (String j : i) {
-                    System.out.println(j);
+                for (String name : studentNames) {
+                    System.out.println(name);
+
                 }
 
             }
@@ -59,17 +68,18 @@ public class StudentList {
 
             try {
 
-                BufferedReader s = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                String r = s.readLine();
-                System.out.println(r);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                String[] i = r.split(",");
+                String lines = bufferedReader.readLine();
+                System.out.println(lines);
 
-                Random x = new Random();
-                int y = x.nextInt();
+                String[] studentNames = lines.split(",");
 
-                System.out.println(i[y]);
+                Random random = new Random();
+                int indexOfRandomStudent = random.nextInt();
+
+                System.out.println(studentNames[indexOfRandomStudent]);
 
             }
 
@@ -86,17 +96,19 @@ public class StudentList {
 
             try {
 
-                BufferedWriter s = new BufferedWriter(new FileWriter("students.txt", true));
 
-                String t = args[0].substring(1);
-                Date d = new Date();
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("students.txt", true));
 
-                String df = "dd/mm/yyyy-hh:mm:ss a";
-                DateFormat dateFormat = new SimpleDateFormat(df);
+                String newStudentName = args[0].substring(1);
+                Date todaysDate = new Date();
 
-                String fd = dateFormat.format(d);
-                s.write(", " + t + "\nList last updated on " + fd);
-                s.close();
+                String formatedDateString = "dd/mm/yyyy-hh:mm:ss a";
+                DateFormat dateFormat = new SimpleDateFormat(formatedDateString);
+
+                String currentDateTime = dateFormat.format(todaysDate);
+                bufferedWriter.write(", " + newStudentName + "\nList last updated on " + currentDateTime);
+                bufferedWriter.close();
+
             }
 
             catch (Exception e) {
@@ -113,21 +125,26 @@ public class StudentList {
             System.out.println("Loading data ...");
 
             try {
-                BufferedReader s = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                String r = s.readLine();
-                String[] i = r.split(",");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                boolean done = false;
+                String lines = bufferedReader.readLine();
+                String[] studentNames = lines.split(",");
 
-                String t = args[0].substring(1);
+                boolean isFound = false;
 
-                for (int idx = 0; idx < i.length && !done; idx++) {
-                    if (i[idx].equals(t)) {
+                String studentName = args[0].substring(1);
+
+                for (int idx = 0; idx < studentNames.length && !isFound; idx++) {
+                    
+                    if (studentNames[idx].equals(studentName)) {
                         System.out.println("We found it!");
-                        done = true;
+                        isFound = true;
                     }
+                
                 }
+                
+
             }
 
             catch (Exception e) {
@@ -143,17 +160,21 @@ public class StudentList {
 
             try {
 
-                BufferedReader s = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                String D = s.readLine();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
 
-                char[] a = D.toCharArray();
+                String lines = bufferedReader.readLine();
+
+                char[] letters = lines.toCharArray();
+
                 boolean in_word = false;
 
                 int count = 0;
 
-                for (char c : a) {
-                    if (c == ' ') {
+
+                for (char letter : letters) {
+
+                    if (letter == ' ') {
                         if (!in_word) {
                             count++;
                             in_word = true;
@@ -165,7 +186,8 @@ public class StudentList {
                     }
                 }
 
-                System.out.println(count + " word(s) found " + a.length);
+
+                System.out.println(count + " word(s) found " + letters.length);
             }
 
             catch (Exception e) {
@@ -176,4 +198,5 @@ public class StudentList {
 
         }
     }
+}
 }
