@@ -1,4 +1,5 @@
 // Completed Task 1: Update code style for better consistency.
+// Completed Task 2: Fixed early terminates for passing wrong number of argument,
 
 import java.io.*;
 import java.text.*;
@@ -11,6 +12,24 @@ public class StudentList {
         // Check arguments
 
         if (args[0].equals("a")) {
+        
+        if (args.length==0){
+            System.out.println("You must have to put at least one argument.");
+        }
+
+        else if (args.length>1){
+            System.out.println("Multipled arguments found ! You must have to put exactly one argument to run this program.");
+
+        }
+
+        else if (args[0].length()>1){
+            System.out.println("Please pass the correct argument.");
+
+        }
+
+
+        else if (args[0].equals("a")) {
+
 
             System.out.println("Loading data ...");
 
@@ -154,7 +173,7 @@ public class StudentList {
             }
 
             System.out.println("Data Loaded.");
-            
+
         }
     }
 }
