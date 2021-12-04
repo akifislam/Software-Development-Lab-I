@@ -1,11 +1,11 @@
-// Completed Task 1: Update code style for better consistency.
-// Completed Task 2: Fixed early terminates for passing wrong number of argument,
-// Completed Task 3: Makes improvement in variable names
+// Completed Task 1 : Update code style for better consistency.
+// Completed Task 2 : Fixed early terminates for passing wrong number of argument.
+// Completed Task 3 : Makes improvement in variable names.
 // Completed Task 4 : Refactors Duplicates File Read and write logic into method.
-// Completed Task 5 : Replace String Literals with Constant.java Class
-// Completed Task 6 : Remove Temporary Variable
-// Completed Task 7 : Elimates 'Done' and adds better response for search operation
-
+// Completed Task 5 : Replace String Literals with Constant.java Class.
+// Completed Task 6 : Remove Temporary Variable.
+// Completed Task 7 : Elimates 'Done' and adds better response for search operation.
+// Completed Task 8 : Simplfies Counter Logic.
 import java.io.*;
 import java.text.*;
 import java.util.*;
@@ -60,7 +60,8 @@ public class StudentList {
             try {
 
                 for (String name : studentNames) {
-                    System.out.println(name);
+                    if(!name.startsWith("("))
+                        System.out.println(name);
 
                 }
 
@@ -105,7 +106,7 @@ public class StudentList {
                 DateFormat dateFormat = new SimpleDateFormat(formatedDateString);
 
                 String currentDateTime = dateFormat.format(todaysDate);
-                bufferedWriter.write(newStudentName + " (Added on " + currentDateTime+ "),");
+                bufferedWriter.write(newStudentName + ",(Added on " + currentDateTime+ "),");
                 System.out.println("New Data Added.");
                 bufferedWriter.close();
 
@@ -140,41 +141,38 @@ public class StudentList {
 
             }
 
-        } else if (args[0].contains("c")) {
+        }
+
+        else if (args[0].contains("c")) {
 
             System.out.println(Constants.DataLoadingProgress);
 
             try {
+                int totalChars = 0;
+                int totalWords = 0;
 
+                for (String student : studentNames) {
+                    if (!student.startsWith("(")) {
 
-                char[] letters = lines.toCharArray();
-
-                boolean in_word = false;
-
-                int count = 0;
-
-
-                for (char letter : letters) {
-
-                    if (letter == ' ') {
-                        if (!in_word) {
-                            count++;
-                            in_word = true;
-                        } else {
-                            in_word = false;
+                        for (String word : student.split(" ")){
+                            totalWords++;
+                            totalChars+=word.length();
                         }
                     }
                 }
 
 
-                System.out.println(count + " word(s) found " + letters.length);
-            } catch (Exception e) {
+                System.out.println("Word(s) found " + totalWords);
+                System.out.println("Characters(s) found " + totalChars);
+            }
+            catch (Exception e) {
 
             }
-
             System.out.println(Constants.DataLoadSucessMsg);
+        }
 
-        } else {
+
+         else {
             System.out.println(Constants.WrongArgument);
         }
     }
