@@ -7,6 +7,10 @@
 // Completed Task 7 : Elimates 'Done' and adds better response for search operation.
 // Completed Task 8 : Simplfies Counter Logic.
 // Completed Task 9 : Adds handling for invalid arguments (Already handled in Task 2)
+// Completed Task 10 : Add comments and more naming improvement
+// ---------------------END -----------------------------------//
+
+
 
 import java.io.*;
 import java.text.*;
@@ -18,6 +22,8 @@ public class StudentList {
     static BufferedReader bufferedReader;
     static String lines;
     static String [] studentNames;
+
+    // This method will create object of BufferReader and load lines in studentNames String Array. It is used to avoid repeatative calling.
     public static void getReader(){
 
         try {
@@ -35,24 +41,31 @@ public class StudentList {
 
     }
 
+    // Main Method
     public static void main(String[] args) {
         getReader();
 
         // Check for invalid arguments
 
+        // Check if user pass no argument
         if (args.length == 0) {
             System.out.println(Constants.ZeroArgument);
         }
 
+        // Check if user pass more than 1 argument
         else if (args.length > 1) {
             System.out.println(Constants.MultipleArgument);
 
         }
 
+        // Check if user pass 1 argument but that is incorrect (Ex: java StudentList Akif)
+
         else if (!args[0].startsWith("@") && !args[0].startsWith("+") && args[0].length() > 1) {
             System.out.println(Constants.WrongArgument);
 
         }
+
+        //Check if user pass 'a' to see the list of students.
 
         else if (args[0].equals("a")) {
 
@@ -71,18 +84,21 @@ public class StudentList {
             }
 
             System.out.println(Constants.DataLoadSucessMsg);
-        } else if (args[0].equals("r")) {
+        }
+
+        //Check if user pass 'r' to see a random student.
+
+        else if (args[0].equals("r")) {
 
             System.out.println(Constants.DataLoadingProgress);
-
+            System.out.println("Random Students...");
             try {
 
 
-                System.out.println(lines);
-
                 Random random = new Random();
-                int indexOfRandomStudent = random.nextInt();
-
+                int indexOfRandomStudent = random.nextInt(studentNames.length-1);
+                if(studentNames[indexOfRandomStudent].startsWith("("))
+                    indexOfRandomStudent--;
                 System.out.println(studentNames[indexOfRandomStudent]);
 
             } catch (Exception e) {
@@ -91,6 +107,8 @@ public class StudentList {
 
             System.out.println(Constants.DataLoadSucessMsg);
         }
+
+        //Check if user pass '+' to add a student name
 
         else if (args[0].contains("+")) {
 
@@ -117,12 +135,16 @@ public class StudentList {
 
 
 
-        } else if (args[0].contains("@")) {
+        }
+
+        //Check if user pass '@' to check if a student present in the list
+
+        else if (args[0].contains("@")) {
 
             System.out.println(Constants.DataLoadingProgress);
 
             try {
-
+                //Take the substring with @ symbol. (Ex : Making from @Akif to Akif)
                 String studentName = args[0].substring(1);
 
                 for (int idx = 0; idx < studentNames.length; idx++) {
@@ -144,6 +166,8 @@ public class StudentList {
 
         }
 
+        // Count the number of words and characters in the file.
+
         else if (args[0].contains("c")) {
 
             System.out.println(Constants.DataLoadingProgress);
@@ -154,7 +178,7 @@ public class StudentList {
 
                 for (String student : studentNames) {
                     if (!student.startsWith("(")) {
-
+                        // Check if a name contains 2-3 words splited by space like "Mehedi Hasan Tarik".
                         for (String word : student.split(" ")){
                             totalWords++;
                             totalChars+=word.length();
