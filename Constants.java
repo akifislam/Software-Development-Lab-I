@@ -10,5 +10,6 @@ public class Constants{
     public static String FoundNoMessage = "Sorry :( We could not find any match";
     public static String DataLoadSucessMsg = "Data Loaded Successfully !";
     public static String DataLoadingProgress = "Data Loading . . . ";
+    public static String DataLoadingFail = "Can't load data :( ";
 
 }

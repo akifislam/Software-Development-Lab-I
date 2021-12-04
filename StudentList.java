@@ -6,6 +6,8 @@
 // Completed Task 6 : Remove Temporary Variable.
 // Completed Task 7 : Elimates 'Done' and adds better response for search operation.
 // Completed Task 8 : Simplfies Counter Logic.
+// Completed Task 9 : Adds handling for invalid arguments (Already handled in Task 2)
+
 import java.io.*;
 import java.text.*;
 import java.util.*;
@@ -36,7 +38,7 @@ public class StudentList {
     public static void main(String[] args) {
         getReader();
 
-        // Check arguments
+        // Check for invalid arguments
 
         if (args.length == 0) {
             System.out.println(Constants.ZeroArgument);
@@ -48,7 +50,6 @@ public class StudentList {
         }
 
         else if (!args[0].startsWith("@") && !args[0].startsWith("+") && args[0].length() > 1) {
-//            System.out.println("LFLFLFLF");
             System.out.println(Constants.WrongArgument);
 
         }
@@ -66,7 +67,7 @@ public class StudentList {
                 }
 
             } catch (Exception e) {
-
+                System.out.println(Constants.DataLoadingFail);
             }
 
             System.out.println(Constants.DataLoadSucessMsg);
@@ -85,7 +86,7 @@ public class StudentList {
                 System.out.println(studentNames[indexOfRandomStudent]);
 
             } catch (Exception e) {
-
+                System.out.println(Constants.DataLoadingFail);
             }
 
             System.out.println(Constants.DataLoadSucessMsg);
@@ -138,7 +139,7 @@ public class StudentList {
 
 
             } catch (Exception e) {
-
+                System.out.println(Constants.DataLoadingFail);
             }
 
         }
@@ -166,7 +167,7 @@ public class StudentList {
                 System.out.println("Characters(s) found " + totalChars);
             }
             catch (Exception e) {
-
+                System.out.println(Constants.DataLoadingFail);
             }
             System.out.println(Constants.DataLoadSucessMsg);
         }
