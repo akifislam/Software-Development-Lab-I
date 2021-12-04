@@ -4,6 +4,7 @@
 // Completed Task 4 : Refactors Duplicates File Read and write logic into method.
 // Completed Task 5 : Replace String Literals with Constant.java Class
 // Completed Task 6 : Remove Temporary Variable
+// Completed Task 7 : Elimates 'Done' and adds better response for search operation
 
 import java.io.*;
 import java.text.*;
@@ -46,7 +47,8 @@ public class StudentList {
 
         }
 
-        else if (!args[0].startsWith("+") && args[0].length() > 1) {
+        else if (!args[0].startsWith("@") && !args[0].startsWith("+") && args[0].length() > 1) {
+//            System.out.println("LFLFLFLF");
             System.out.println(Constants.WrongArgument);
 
         }
@@ -86,9 +88,10 @@ public class StudentList {
             }
 
             System.out.println(Constants.DataLoadSucessMsg);
-        } else if (args[0].contains("+")) {
+        }
 
-            System.out.println(Constants.DataLoadingProgress);
+        else if (args[0].contains("+")) {
+
 
             try {
 
@@ -98,36 +101,39 @@ public class StudentList {
                 String newStudentName = args[0].substring(1);
                 Date todaysDate = new Date();
 
-                DateFormat dateFormat = new SimpleDateFormat(Constants.formatedDateString);
+                String formatedDateString = Constants.formatedDateString;
+                DateFormat dateFormat = new SimpleDateFormat(formatedDateString);
 
                 String currentDateTime = dateFormat.format(todaysDate);
-                bufferedWriter.write(", " + newStudentName + "\nList last updated on " + currentDateTime);
+                bufferedWriter.write(newStudentName + " (Added on " + currentDateTime+ "),");
+                System.out.println("New Data Added.");
                 bufferedWriter.close();
 
             } catch (Exception e) {
-
+                System.out.println("Could not add new data");
             }
 
-            System.out.println(Constants.DataLoadSucessMsg);
 
-        } else if (args[0].contains("?")) {
+
+        } else if (args[0].contains("@")) {
 
             System.out.println(Constants.DataLoadingProgress);
 
             try {
 
-
                 String studentName = args[0].substring(1);
 
-                for (int idx = 0; idx < studentNames.length && !isFound; idx++) {
+                for (int idx = 0; idx < studentNames.length; idx++) {
 
-                    if (studentNames[idx].equals(studentName)) {
+                    if (studentNames[idx].startsWith(studentName)) {
                         System.out.println(Constants.FoundYesMessage);
                         System.out.println(Constants.DataLoadSucessMsg);
                         return;
                     }
 
                 }
+
+                System.out.println(Constants.FoundNoMessage);
 
 
             } catch (Exception e) {
